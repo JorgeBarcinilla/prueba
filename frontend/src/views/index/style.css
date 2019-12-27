@@ -1,0 +1,56 @@
+header#welcome {
+    margin-top: -20px;
+    text-align: center;
+    color: dimgray;
+    background-color: white;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
+    background-size: cover;
+  }
+  
+  header#welcome .text {
+    margin-top: -100px;
+    padding-top: 150px;
+    padding-bottom: 100px;
+  }
+  
+  header#welcome .text .intro-heading {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 50px;
+    margin-bottom: 25px;
+    font-weight: bold;
+  }
+  
+  #intro-welcome {
+    color: dimgray;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 50px;
+    margin-bottom: 25px;
+    font-weight: bold;
+  }
+  
+  @media (min-width: 768px) {
+  
+    header#welcome .text {
+        padding-top: 300px;
+        padding-bottom: 250px;
+    }
+  
+    header#welcome .text .intro-heading {
+        font-size: 48px;
+        font-weight: 700;
+        line-height: 50px;
+        margin-bottom: 50px;
+        margin-left: 80px;
+        margin-right: 80px;
+  
+    }
+  }
+  
+  .btn-xl {
+    font-size: 18px;
+    padding: 15px 50px;
+  }
