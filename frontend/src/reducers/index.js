@@ -4,6 +4,7 @@ import authReducer from './auth';
 import homeReducer from "./home";
 import createMovieReducer from "./createMovie";
 import createFuncionReducer from "./createFuncion";
+import deleteFuncionReducer from "./deleteFuncion";
 
 export default combineReducers({
     form: formReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
     home: homeReducer,
     createMovie: createMovieReducer,
     createFuncion: createFuncionReducer,
+    deleteFuncion: deleteFuncionReducer
 });

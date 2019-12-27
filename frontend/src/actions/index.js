@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AUTH_SIGN_UP, AUTH_ERROR, AUTH_SIGN_OUT, AUTH_SIGN_IN, HOME_GET_DATA, MOVIE_CREATE, FUNCION_CREATE} from "./types";
+import { AUTH_SIGN_UP, AUTH_ERROR, AUTH_SIGN_OUT, AUTH_SIGN_IN, HOME_GET_DATA, MOVIE_CREATE, FUNCION_CREATE, FUNCION_DELETE} from "./types";
 
 export const signUp = data => {
 
@@ -58,13 +58,33 @@ export const getFuncions = () => {
         try {
             const movies = await axios.get('http://localhost:4000/api/movie/');
             const funcions = await axios.get('http://localhost:4000/api/funcion/');
+            const user = await axios.get('http://localhost:4000/api/user/home');
+
             console.log(funcions);
             dispatch({
                 type: HOME_GET_DATA,
                 payload: {
                     movies : movies.data,
-                    funcions: funcions.data
+                    funcions: funcions.data,
+                    user: user.data
                 }
+            });
+
+        } catch (err) {
+            console.error('err',err);
+        }
+        
+    }
+}
+
+export const deleteFuncion = data => {
+    return async dispatch => {
+        try {
+            const res = await axios.post('http://localhost:4000/api/funcion/delete', data);
+            console.log(res.data);
+            dispatch({
+                type: FUNCION_DELETE,
+                payload: res.data
             });
 
         } catch (err) {

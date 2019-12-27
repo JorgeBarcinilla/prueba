@@ -18,7 +18,8 @@ router.route('/create')
 router.put('/update/:idfuncion', updateFuncion);
 
 //Elimina una funcion
-router.delete('/delete/:idFuncion', deleteFuncion);
+router.route('delete')
+    .post(passportJWT, deleteFuncion);
 
 
 module.exports = router;

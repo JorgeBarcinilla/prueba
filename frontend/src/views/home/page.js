@@ -60,9 +60,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-export default function Home({onSubmitPelicula, onSubmitFuncion, errorMessage, movies}) {
+export default function Home({onSubmitPelicula, onSubmitFuncion, errorMessage, movies, user, funcions, onDeleteFuncion}) {
   const classes = useStyles();
   console.log(movies);
   return (
@@ -78,166 +77,163 @@ export default function Home({onSubmitPelicula, onSubmitFuncion, errorMessage, m
             <Typography variant="h5" align="center" color="textSecondary" paragraph>
               Aqui encontraras las peliculas que en este momento estan en cartelera, puedes adquirir tu entrada en la que mas te guste.
             </Typography>
-            {errorMessage ? 
-                            <Grid item xs={12}>
-                                {errorMessage}
-                            </Grid> : null
-                            }
-            <div className={classes.heroButtons}>
-              <Grid container spacing={2} justify="center">
-                <Grid item>
-                    <Dialog showDialog={onSubmitFuncion} nameButton="Crear funcion" title="Formulario de creacion de funciones" errorMessage={errorMessage}>
-                    <form noValidate method="post" onSubmit={onSubmitFuncion}>
-                        <Grid container spacing={2} justify="center">
-                            <Grid item xs={12} sm={6}>
-                                <Field
-                                name="movie"
-                                id="movie"
-                                label="Nombre de la pelicula"
-                                component="select"
-                                >
-                                  {movies.map(movie => (
-                                    <option key={movie.id} value={movie.id}>
-                                    {movie.movieName}
-                                    </option>
-                                  ))}
-                                </Field>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                            <Field
-                                variant="outlined"
-                                type="datetime-local"
-                                id="dateMovie"
-                                label=""
-                                name="dateMovie"
-                                autoComplete="dMovie"
-                                component={Input}
-                            />
-                            </Grid>
-                            <Grid item xs={6}>
-                            <Field
-                                variant="outlined"
-                                type="number"
-                                id="quotaMovie"
-                                label="Cupo de la sala"
-                                name="quotaMovie"
-                                component={Input}
-                            />
-                            </Grid>
-                            <Grid item xs={6}>
-                            <Field
-                                variant="outlined"
-                                name="siteMovie"
-                                label="Lugar"
-                                type="text"
-                                id="siteMovie"
-                                component={Input}
-                            />
-                            </Grid>
-                            <Grid item xs={6}>
-                            <Field
-                                variant="outlined"
-                                type="text"
-                                id="addressMovie"
-                                label="Direccion"
-                                name="addressMovie"
-                                component={Input}
-                            />
-                            </Grid>
-                            {errorMessage ? 
-                            <Grid item xs={12}>
-                                {errorMessage}
-                            </Grid> : null
-                            }
-                            <Grid item xs={12}>
-                                <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                >
-                                    Crear funcion
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    </form>
-                    </Dialog>
-                </Grid>
-                <Grid item>
-                    <Dialog showDialog={onSubmitFuncion} nameButton="Agregar pelicula" title="Formulario de registro de peliculas" errorMessage={errorMessage}>
-                        <form noValidate method="post" onSubmit={onSubmitPelicula}>
-                            <Grid container spacing={2} justify="center">
-                                <Grid item xs={12} sm={6}>
+            {user.rol === 'admin' ? 
+                      <div className={classes.heroButtons}>
+                      <Grid container spacing={2} justify="center">
+                        <Grid item>
+                            <Dialog showDialog={onSubmitFuncion} nameButton="Crear funcion" title="Formulario de creacion de funciones" errorMessage={errorMessage}>
+                            <form noValidate method="post" onSubmit={onSubmitFuncion}>
+                                <Grid container spacing={2} justify="center">
+                                    <Grid item xs={12} sm={6}>
+                                        <Field
+                                        name="movie"
+                                        id="movie"
+                                        label="Nombre de la pelicula"
+                                        component="select"
+                                        >
+                                          {movies.map(movie => (
+                                            <option key={movie.id} value={movie.id}>
+                                            {movie.movieName}
+                                            </option>
+                                          ))}
+                                        </Field>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
                                     <Field
-                                    name="movieName"
-                                    type="text"
-                                    id="movieName"
-                                    label="Pelicula"
-                                    variant="outlined"
-                                    autoComplete="fname"
-                                    autofocus
-                                    component={Input}
+                                        variant="outlined"
+                                        type="datetime-local"
+                                        id="dateMovie"
+                                        label=""
+                                        name="dateMovie"
+                                        autoComplete="dMovie"
+                                        component={Input}
                                     />
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                    <Field
+                                        variant="outlined"
+                                        type="number"
+                                        id="quotaMovie"
+                                        label="Cupo de la sala"
+                                        name="quotaMovie"
+                                        component={Input}
+                                    />
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                    <Field
+                                        variant="outlined"
+                                        name="siteMovie"
+                                        label="Lugar"
+                                        type="text"
+                                        id="siteMovie"
+                                        component={Input}
+                                    />
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                    <Field
+                                        variant="outlined"
+                                        type="text"
+                                        id="addressMovie"
+                                        label="Direccion"
+                                        name="addressMovie"
+                                        component={Input}
+                                    />
+                                    </Grid>
+                                    {errorMessage ? 
+                                    <Grid item xs={12}>
+                                        {errorMessage}
+                                    </Grid> : null
+                                    }
+                                    <Grid item xs={12}>
+                                        <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        color="primary"
+                                        >
+                                            Crear funcion
+                                        </Button>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={12} sm={6}>
-                                <Field
-                                    variant="outlined"
-                                    type="text"
-                                    id="directorMovie"
-                                    label="Director"
-                                    name="directorMovie"
-                                    autoComplete="dMovie"
-                                    component={Input}
-                                />
-                                </Grid>
-                                <Grid item xs={6}>
-                                <Field
-                                    variant="outlined"
-                                    name="genderMovie"
-                                    label="Genero"
-                                    type="text"
-                                    id="genderMovie"
-                                    component={Input}
-                                />
-                                </Grid>
-                                <Grid item xs={12}>
-                                <Field
-                                    variant="outlined"
-                                    type="text"
-                                    id="descrMovie"
-                                    label="Descripcion"
-                                    name="descrMovie"
-                                    component={Input}
-                                />
-                                </Grid>
-                                {errorMessage ? 
-                                <Grid item xs={12}>
-                                    {errorMessage}
-                                </Grid> : null
-                                }
-                                <Grid item xs={12}>
-                                    <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    color="primary"
-                                    >
-                                        Agregar pelicula
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </form>
-                    </Dialog>
-                </Grid>
-              </Grid>
-            </div>
+                            </form>
+                            </Dialog>
+                        </Grid>
+                        <Grid item>
+                            <Dialog showDialog={onSubmitFuncion} nameButton="Agregar pelicula" title="Formulario de registro de peliculas" errorMessage={errorMessage}>
+                                <form noValidate method="post" onSubmit={onSubmitPelicula}>
+                                    <Grid container spacing={2} justify="center">
+                                        <Grid item xs={12} sm={6}>
+                                            <Field
+                                            name="movieName"
+                                            type="text"
+                                            id="movieName"
+                                            label="Pelicula"
+                                            variant="outlined"
+                                            autoComplete="fname"
+                                            autofocus
+                                            component={Input}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                        <Field
+                                            variant="outlined"
+                                            type="text"
+                                            id="directorMovie"
+                                            label="Director"
+                                            name="directorMovie"
+                                            autoComplete="dMovie"
+                                            component={Input}
+                                        />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                        <Field
+                                            variant="outlined"
+                                            name="genderMovie"
+                                            label="Genero"
+                                            type="text"
+                                            id="genderMovie"
+                                            component={Input}
+                                        />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                        <Field
+                                            variant="outlined"
+                                            type="text"
+                                            id="descrMovie"
+                                            label="Descripcion"
+                                            name="descrMovie"
+                                            component={Input}
+                                        />
+                                        </Grid>
+                                        {errorMessage ? 
+                                        <Grid item xs={12}>
+                                            {errorMessage}
+                                        </Grid> : null
+                                        }
+                                        <Grid item xs={12}>
+                                            <Button
+                                            type="submit"
+                                            fullWidth
+                                            variant="contained"
+                                            color="primary"
+                                            >
+                                                Agregar pelicula
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+                                </form>
+                            </Dialog>
+                        </Grid>
+                      </Grid>
+                    </div>: null
+          }
           </Container>
         </div>
         <Container className={classes.cardGrid} maxWidth="lg">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map(card => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            {funcions.map(funcion => (
+              <Grid item key={funcion} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
@@ -246,53 +242,60 @@ export default function Home({onSubmitPelicula, onSubmitFuncion, errorMessage, m
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Heading
+                      {funcion.movie}
                     </Typography>
                     <Typography>
-                      This is a media card. You can use this section to describe the content.
+                    {funcion.movie}
                     </Typography>
                     <Divider variant="middle" />
                         <Grid container>
                             <Grid item>
                                 <MovieFilterIcon/>
-                                <Chip className={classes.chip} label="Genero" />
+                                <Chip className={classes.chip} label={funcion.movie} />
                             </Grid>
                             <Grid item>
                                 <ScheduleIcon/>
-                                <Chip className={classes.chip} label="Fecha inicio" />
+                                <Chip className={classes.chip} label={funcion.dateMovie} />
                             </Grid>
                             <Grid item>
                                 <LocationCityIcon/>
-                                <Chip className={classes.chip} label="Lugar" />
+                                <Chip className={classes.chip} label={funcion.siteMovie} />
                             </Grid>
                             <Grid item>
                                 <LocationOnIcon/>
-                                <Chip className={classes.chip} label="Direccion" />
+                                <Chip className={classes.chip} label={funcion.addressMovie} />
                             </Grid>
                             <Grid item>
                                 <FaceIcon/>
-                                <Chip className={classes.chip} label="Cupo" />
+                                <Chip className={classes.chip} label={funcion.quotaMovie} />
                             </Grid>
                             
                         </Grid>
                   </CardContent>
                   <CardActions>
                     <Grid container justify='center'>
+                    {user.rol === 'user' ? 
                         <Grid item>
                             <Button size="small" color="primary">
                                 Adquirir
                             </Button>
-                        </Grid>
+                        </Grid> : null}
+                        {user.rol === 'admin' ? 
                         <Grid item>
                             <Button size="small" color="primary">
                                 Editar
                             </Button>
-                        </Grid>
+                        </Grid> : null}
+                        {user.rol === 'admin' ? 
                         <Grid item>
-                            <Button size="small" color="primary">
+                          <form noValidate method="post" onSubmit={onDeleteFuncion}>
+                            <input id="idFuncion" type="hidden" value={funcion.id}></input>
+                            <Button size="small" color="primary" type="submit">
                                 Eliminar
                             </Button>
-                        </Grid>
+                          </form>
+                            
+                        </Grid> : null}
                     </Grid>
                     
                   </CardActions>

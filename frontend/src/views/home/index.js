@@ -36,6 +36,10 @@ class Home extends Component {
         }
     }
 
+    async onDeleteFuncion(formData){
+        await this.props.deleteFuncion(formData);
+    }
+
     render() {
         const{ handleSubmit } = this.props;
         return (
@@ -47,6 +51,8 @@ class Home extends Component {
                     errorMessage = {this.props.errorMessage}
                     movies = {this.props.movies}
                     funcions = {this.props.funcions}
+                    user = {this.props.user}
+                    onDeleteFuncion = {handleSubmit(this.onDeleteFuncion)}
                 />
             </React.Fragment>
             
@@ -57,7 +63,8 @@ function mapStateToProps(state) {
     return{
         errorMessage: state.auth.errorMessage,
         movies: state.home.movies,
-        funcions: state.home.funcions
+        funcions: state.home.funcions,
+        user: state.home.user
     }  
 }
 

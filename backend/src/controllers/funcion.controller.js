@@ -28,7 +28,7 @@ funcionCtrl.updateFuncion =  async (req, res) => {
 }
 
 funcionCtrl.deleteFuncion = async (req, res) => {
-    await Funcion.findByIdAndRemove(req.params.idFuncion);
+    await Funcion.findByIdAndRemove(req.body.idFuncion);
     res.json({status: 'Funcion eliminada'});
 }
 
